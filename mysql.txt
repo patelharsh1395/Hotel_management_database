@@ -1,0 +1,239 @@
+select IFNULL(p.name, "**Empty**" ), m.name 
+from products as p right join Manufacturers as m 
+On p.manufacturer = m.code;
+
+select * from products;
+
+
+select p.name
+from (select name,manufacturer,code from products where code>5) p
+where p.code<9;
+
+select * from products where price >= 150
+union all
+select * from products where price <= 150;
+
+
+create table emp (id  int  primary key , name varchar(10));
+
+create table department (id int primary key, name varchar(10), emap_id int, constraint fk_dep foreign key fk(emap_id) references emp(id) on update cascade  on delete cascade );
+
+
+
+alter table department
+add constraint constraint_fk foreign key (emap_id) references emp(id);
+
+
+
+insert into emp values (1,'Harsh1');
+
+insert into emp values (2,'Harsh2');
+
+insert into emp values (3,'Harsh3');
+
+
+insert into department values(1,'IT',2);
+insert into department values(2,'accounts',1);
+insert into department values(3,'sales',3);
+
+
+
+
+alter table department
+change column emap_id emp_id int;
+
+
+alter table department
+rename to dep;
+
+
+
+syntax 
+#############################################
+alter table department
+add constraint [name] check/fk/pk ; 
+
+
+alter table table_name
+modify clo datatype;
+
+alter table table_name
+change column col_name_old col_name_new data type;
+
+
+ 
+select room_no ,  
+from rooms, (select room_no, from_date , date_diff(from,till) from customers_rooms where from_date > current_date()) temp
+where 
+
+
+select r.room_no, if(date_diff(current_date(),)
+from rooms as r left join (select customers_rooms as cs
+On r.room_no = cs.room_no
+group by r.room_no
+
+
+create table rooms(room_no int primary key, capacity int); 
+
+
+insert into rooms values(101, 2  );
+insert into rooms values(102, 2  );
+insert into rooms values(103, 2  );
+insert into rooms values(104, 3  );
+insert into rooms values(105, 3  );
+
+
+
+create table booking(room_no int, from_date date, till_date date, primary key(room_no,from_date,till_date) , foreign key (room_no) references rooms(room_no) );
+
+
+insert into booking  values(101,'2019-01-20','2019-01-21');
+insert into booking  values(101,'2019-01-21','2019-01-23');
+insert into booking  values(102,'2019-01-20','2019-01-23');
+insert into booking  values(102,'2019-01-18','2019-01-19');
+insert into booking  values(104,'2019-02-16','2019-02-15');
+
+
+select r.room_no ,
+ if(datediff(current_date(),cs.from_date)<0,  "yes", if(datediff(current_date(),cs.till_date)>0,  "yes", "no")) as 'current_date()', 
+ if(datediff(date_add(current_date(),interval 1 day)),cs.from_date)<0, "Yes",if(datediff(date_add(current_date(),interval 1 day)),cs.till_date)>0,  "yes", "no")) as 'date_add(current_date(),interval 1 day)'
+from r.rooms left join  booking as cs on r.room_no = cs.room_no;
+
+
+
+create procedure call_all
+Begin
+select * from emp
+end//
+
+
+create procedure view_availablity()
+begin
+declare v_room_no int ;
+
+declare first_date date;
+declare last_date date;
+declare v_from_date date;
+declare v_till_date date;
+declare temp int default 0;
+
+declare c1 cursor for select room_no, from_date , till_date
+from booking order by room_no, from_date;
+
+declare continue handler for not found set temp=1;
+open c1;
+set first_date = current_date();
+
+
+get_loop : loop
+
+fetch c1 into v_room_no, v_from_date, v_till_date;
+
+if temp=1 then 
+	leave get_loop;
+end if;
+	
+ if (datediff(first_date,v_from_date)<0) then 
+	Select first_date , v_from_date , v_room_no;   
+	set first_date = v_till_date;
+ else 
+	set first_date =v_till_date;
+ end if;	
+
+end loop get_loop;	 	
+	 	
+end
+
+######################################################################################################################################
+create procedure availablity()
+begin 
+declare var_from_date date;
+declare var_till_date date;
+declare av_room_no int ;
+declare av_from_date date default current_date();
+declare var_room_no int;
+declare counter int default 0;
+declare c1 cursor for select rooms.room_no, booking.from_date, booking.till_date 
+			from rooms left join booking on rooms.room_no = booking.room_no where booking.from_date>=current_date() or  			booking.from_date is null order by rooms.room_no, booking.from_date asc;
+declare continue handler for not found  set counter=1;
+open c1;
+
+create table availablity(room_no int, from_date date, till_date date);
+
+get_loop : Loop
+
+fetch c1 into  var_room_no, var_from_date, var_till_date;
+
+ 
+if(av_room_no is null) then
+	set av_room_no = var_room_no;
+else
+	If(av_room_no !=var_room_no) then
+		if(datediff(av_from_date,date_add(current_date(),interval 31 day))<0) then
+			insert into availablity values (av_room_no,av_from_date,date_add(current_date(),interval 31 day));
+			set av_room_no = var_room_no;
+		end if;
+	end if;
+end if;
+
+
+
+if counter=1 then 
+	leave get_loop;
+end if;
+
+if(var_from_date is not null and var_till_date is not null) then
+
+	if (datediff(av_from_date,var_from_date)<0) then
+		insert into availablity values (var_room_no, av_from_date, var_from_date);
+
+	end if;
+		set av_from_date = var_till_date;
+
+	
+else 
+	insert into availablity values (var_room_no, current_date(), date_add(current_date(),interval 31 day));
+	set av_from_date = date_add(current_date(),interval 31 day);
+end if;
+
+
+end loop get_loop; 
+
+select * from availablity;
+
+drop table availablity;
+
+
+end	
+ 
+
+
+##########################################################################################################################
+
+
+
+create trigger booking_table before insert
+on booking
+for each row
+begin
+call greater_then(from_date,till_date);
+end  
+
+
+create procedure greater_then(IN var1 date, IN var2 date) 
+begin
+if (var2<var1) then
+	signal SQLSTATE "40000"
+	Set MESSAGE_TEXT = "date is wrong";
+end if;
+end 
+
+
+
+
+
+
+
+
+
+

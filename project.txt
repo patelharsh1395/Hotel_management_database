@@ -1,0 +1,707 @@
+create table customers 
+( cust_id int primary key auto_increment,
+ fname varchar(15) not null,
+ Lname varchar(15) not null, 
+identity_type enum("passport","driving_license"), 
+id_no varchar(10) unique,
+ DOB date,
+ gender enum('Male','female','others'),
+ postal_code varchar(10), 
+city varchar(10)
+);
+
+ 
+insert into customers values (1,"Rohan","Ohri", 'passport', 'M01234', '1996-03-14','Male','1vg9j9', 'Toronto' );
+insert into customers values (2,"Rahul","soni", 'passport', 'M06334', '1995-11-20','Male','125d8j9','Alberta' );
+insert into customers values (3,"Smita","jain", 'License' ,'L01234', '1984-05-14','Female','1vd238j9','Toronto' );
+insert into customers values (4,"Sushmita","meghani", 'passport', 'M01534', '1996-12-10','Female','1v324d8j9','Oshawa' );
+insert into customers values (5,"raj","verma", 'passport', 'M01252', '1994-07-17','Male','1vd338j9','Ottawa' );
+insert into customers values (6,"wraj","gupta", 'License' ,'L01074', '1977-03-07','Male','1vd2349','Toronto' );
+insert into customers values (7,"mohan","singh", 'passport', 'M01145', '1970-02-12','Male','1v4324j9','Mumbai' );
+insert into customers values (8,"sohan","kumar", 'passport', 'M01499', '1981-03-04','Male','1vd3348j9','surrey' );
+insert into customers values (9,"salman","ali", 'License' , 'L01121', '1992-08-01','Male','1vdr58j9','Toronto' );
+
+
+
+
+create table jobrole ( job_id int primary key , job_name varchar(20) not null); 
+
+
+insert into jobrole values(1,'Guest_Manager');
+insert into jobrole values(2,'Receptionist');
+insert into jobrole values(3,'house_keeper');
+insert into jobrole values(4,'event_manager');
+insert into jobrole values(5,'security_guard');
+insert into jobrole values(6,'chef');
+insert into jobrole values(7,'head_chef');
+insert into jobrole values(8,'waiter');
+insert into jobrole values(9,'general_manager');
+
+
+
+create table employees (
+emp_id varchar(10) primary key, 
+fname varchar(15) not null, 
+lname varchar(15) not null, 
+gender enum('Male','female','others') , 
+job_id int not null, 
+DOB date, 
+DOJ date, 
+city varchar(15) ,
+postal_code varchar(10),
+identity_type enum("passport","driving_license"), 
+id_no varchar(10) ,
+ph_id int,
+foreign key (job_id) references jobrole(job_id),
+foreign key (ph_id) references per_hour(ph_id)
+);
+
+
+ 
+insert into employees values ( 'E1','Aman' ,'Mhera' , 'Male' , '4' , '1996-01-11' , '2013-01-1' , 'Toronto' , '125d8j9', 'Passport' , 'M0634' , '1');
+insert into employees values ( 'E2','Kartik' ,'gupta' , 'Male' , '3' , '1995-02-12' , '2013-01-1' , 'Alberta' , '125d8j9', 'Passport' , 'M063235', '2' );
+insert into employees values ( 'E3','mahesh' ,'sharma' , 'Male' , '3' , '1997-03-13' , '2015-01-1' , 'Oshawa', '125d8j9', 'Passport' , 'M0633433','2' );
+insert into employees values ( 'E4','ramesh' ,'verma' , 'Male' , '1' , '1991-04-14' , '2017-02-11' , 'surrey', '1vd2349', 'Passport' , 'M063343' '3' );
+insert into employees values ( 'E5','Suresh' ,'Mhera' , 'Male' , '4' , '1996-05-15' , '2017-02-17' , 'Ottawa', '1vg9j9' , 'Passport' , 'M06312' ,'4' );
+insert into employees values ( 'E6','Harsh' ,'tijori' , 'Male' , '5' , '1991-06-16' , '2017-02-15' , 'Toronto' , '1vg9j9' , 'Passport' , 'M06334', '5' );
+insert into employees values ( 'E7','akash' ,'sijori' , 'Male' , '7' , '1991-07-17' , '2017-02-14' , 'Oshawa', '1vg9j9' , 'Passport' , 'M06377', '6' );
+insert into employees values ( 'E8','punit' ,'batlivala' , 'Male' , '9' , '1990-08-17' , '2018-03-1' , 'surrey', '125d8j9', 'Passport' , 'M06379','2' );
+insert into employees values ( 'E9','raman' ,'kachvala' , 'Male' , '3' , '1994-09-18' , '2014-03-6' , 'Oshawa', '125d8j9', 'Passport' , 'M06334', '5' );
+insert into employees values ( 'E10','ajay' ,'daruvala' , 'Male' , '2' , '1976-10-19' , '2014-03-6' , 'Alberta' , '1vg9j9' , 'Passport' , 'M06332','1' );
+insert into employees values ( 'E11','vijay' ,'borivala' , 'Male' , '5' , '1986-11-10' , '2014-04-7' , 'surrey', '1vd2349', 'Passport' , 'M06311','6' );
+insert into employees values ( 'E12','sujay' ,'dhakkan' , 'Male' , '4' , '1986-12-20' , '2014-04-8' , 'Oshawa', '125d8j9''Passport' , 'M06377' , '7');
+insert into employees values ( 'E13','aditya' ,'khanna' , 'Male' , '6' , '1986-01-21' , '2014-05-2' , 'Ottawa', '1vg9j9' , 'Passport' , 'M06334', '1' );
+insert into employees values ( 'E14','deepak' ,'agarval' , 'Male' , '8' , '1976-02-22' , '2017-05-16' , 'Alberta' , '125d8j9''Passport' , 'M0638', '4' );
+insert into employees values ( 'E15','ashok' ,'goyal' , 'Male' , '9' , '1997-03-23' , '2015-07-5' , 'Oshawa', '1vd2349''Passport' , 'M0636' , '5' );
+insert into employees values ( 'E16','uday' ,'soyal' , 'Male' , '8' , '1991-04-25' , '2015-07-3' , 'Alberta' , '1vd2349', 'Passport' , 'M06355', '6' );
+insert into employees values ( 'E17','amit' ,'patel' , 'Male' , '8' , '1976-05-1' , '2015-08-1' , 'Gujarat' , '125d8j9', 'Passport' , 'M06334' ,'7' );
+insert into employees values ( 'E18','rohit' ,'thakur' , 'Male' , '5' , '1986-06-12' , '2015-02-19' , 'Ottawa', '125d8j9', 'Passport' , 'M06334', '8' );
+insert into employees values ( 'E19','jakar' ,'kaur' , 'Male' , '6' , '1986-07-13' , '2012-09-12' , 'Gujarat' , '125d8j9''Passport' , 'M06334', '3' );
+insert into employees values ( 'E20','ramisha' ,'sharma' , 'female' , '8' , '1981-08-14' , '2012-09-11' , 'surrey', '125d8j9', 'Passport' , 'M06334','2' );
+insert into employees values ( 'E21','sonia' ,'verma' , 'Female' , '3' , '1989-09-15' , '2016-02-14' , 'Toronto' , '1vg9j9' , 'Passport' , 'M06034', '1' );
+insert into employees values ( 'E22','monia' ,'khan' , 'Female' , '7' , '1987-10-16' , '2016-09-16' , 'Ottawa', '1vg9j9' , 'Passport' , 'M06334', '4' );
+insert into employees values ( 'E23','meghna' ,'kumar' , 'Female' , '7' , '1985-01-17' , '2018-09-18' , 'Oshawa', '1vd2349''Passport' , 'M063334', '2' );
+insert into employees values ( 'E24','preeta' ,'shetty' , 'Female' , '8' , '1979-02-18' , '2017-10-18' , 'surrey', '1vg9j9' , 'Passport' , 'M06674', '5' );
+insert into employees values ( 'E25','priya' ,'chopra' , 'Female' , '3' , '1995-03-19' , '2017-10-19' , 'Toronto' , '1vg9j9' , 'Passport' , 'M01234', '6' );
+insert into employees values ( 'E26','kaya' ,'kapoor' , 'Female' , '8' , '1991-03-14' , '2017-10-19' , 'Oshawa', '1vd2349''Passport' , 'M067334' , '1');
+insert into employees values ( 'E27','rimma' ,'dutta' , 'Female' , '6' , '1996-03-14' , '2017-02-10' , 'Toronto' , '1vg9j9' , 'Passport' , 'M06334', '7' );
+
+
+
+
+
+
+
+
+create table attendance (present_date date , 
+emp_id  varchar(10), 
+InTime time,
+OutTime time, 
+primary key (present_date,emp_id),
+foreign key (emp_id) references employees(emp_id) );
+
+
+
+
+
+insert into attendance values ( "2018-09-10" , 'E1'  , '01:00:00' , '10:00:00');
+insert into attendance values ( "2018-09-10" , 'E10' , '03:00:00' , '9:00:00');
+insert into attendance values ( "2018-09-10" , 'E11' , '05:00:00' , '10:00:00');
+insert into attendance values ( "2018-09-11" , 'E10' , '02:00:00' , '12:00:00');
+insert into attendance values ( "2018-09-11" , 'E11' , '01:00:00' , '13:00:00');
+insert into attendance values ( "2018-09-11" , 'E1'  , '01:00:00' , '14:00:00');
+insert into attendance values ( "2018-09-10" , 'E1'  , '06:00:00' , '17:00:00');
+insert into attendance values ( "2018-09-10" , 'E10' , '06:00:00' , '10:00:00');
+insert into attendance values ( "2018-09-12" , 'E11' , '07:00:00' , '11:00:00');
+insert into attendance values ( "2018-09-12" , 'E10' , '08:00:00' , '14:00:00');
+insert into attendance values ( "2018-09-12" , 'E1'  , '10:00:00' , '22:00:00');
+insert into attendance values ( "2018-09-13" , 'E3'  , '01:00:00' , '10:00:00');
+
+
+insert into attendance values ( "2018-09-16" , 'E10'  , '01:00:00' , '10:00:00');
+insert into attendance values ( "2018-09-19" , 'E1'  , '03:00:00' , '8:00:00');
+insert into attendance values ( "2018-09-12" , 'E11'  , '01:00:00' , '5:00:00');
+insert into attendance values ( "2018-09-12" , 'E2'  , '04:00:00' , '8:00:00');
+insert into attendance values ( "2018-09-14" , 'E10'  , '10:00:00' , '18:00:00');
+insert into attendance values ( "2018-09-18" , 'E7'  , '07:00:00' , '12:00:00');
+insert into attendance values ( "2018-09-19" , 'E2'  , '06:00:00' , '10:00:00');
+insert into attendance values ( "2018-09-19" , 'E10'  , '10:00:00' , '12:00:00');
+insert into attendance values ( "2018-09-13" , 'E8'  , '03:00:00' , '09:00:00');
+insert into attendance values ( "2018-09-09" , 'E8'  , '01:00:00' , '10:00:00');
+
+
+
+
+
+
+create table per_hour ( 
+ph_id int(5) auto_increment primary key,
+rate int);
+
+
+insert into per_hour(rate) values (10);
+insert into per_hour(rate) values (11);
+insert into per_hour(rate) values (12);
+insert into per_hour(rate) values (13);
+insert into per_hour(rate) values (14);
+insert into per_hour(rate) values (15);
+insert into per_hour(rate) values (16);
+insert into per_hour(rate) values (17);
+
+
+create table salary( month int(3), 
+year int(5), 
+emp_id varchar(6), 
+amount int,
+primary key (month, year, emp_id),
+foreign key (emp_id) references employees(emp_id)
+);
+
+
+
+
+
+###########################
+
+
+delimiter $
+create or replace procedure for_salary(in emp varchar(5), out month_var int,out time_var time, out per_hour_var int)
+begin 
+
+
+ select employees.emp_id , @per_hour_var := per_hour.rate
+    from employees inner join per_hour on employees.ph_id = per_hour.ph_id where employees.emp_id = emp;
+
+select @month_var:= month(present_date) as Month  , @time_var :=  sum(hour(timediff(outtime,intime))+ (minute(timediff(outtime,intime))/60)  ) 
+from attendance 
+where emp_id = emp
+group by Month , emp_id;
+set month_var = @month_var;
+set time_var = @time_var;
+set per_hour_var = @per_hour_var;
+end
+$
+delimiter ;
+
+
+
+ 
+
+
+#####################################
+
+
+
+
+
+
+############################################################# 
+
+create trigger insert_into_salary after insert on attendance
+for each row
+begin
+declare emp varchar(5);
+declare month_var int;
+declare year_var int;
+declare time_var time;
+declare per_hour_var int;
+declare count_num int;
+
+set emp=new.emp_id;
+set month_var = month(new.present_date);
+set year_var = year(new.present_date); 
+call return_row_count(emp,month_var,year_var,count_num);
+if(return_row_count <1) then
+		 call for_salary(emp, month_var, time_var, per_hour_var );
+		insert into salary values(month_var, year_var, emp, time_var*per_hour_var);
+else 
+	update salary set salary.amount = (time_var*per_hour_var) where salary.emp_id=emp and salary.month=month_var and salary.year=year_var;
+end if;
+end 
+ 
+################################################
+
+create procedure  return_row_count(in emp varchar(5),in month_var int,in year_var int,out count_num int)
+begin 
+select @count_num:=count(emp_id) from salary where emp_id=emp and month=month_var and year=year_var;
+set count_num=@count_num;
+end
+
+
+delimiter $
+create or replace procedure for_salary(in emp varchar(5), out month_var int,out time_var time, out per_hour_var int)
+begin 
+
+
+ select employees.emp_id , @per_hour_var := per_hour.rate
+    from employees inner join per_hour on employees.ph_id = per_hour.ph_id where employees.emp_id = emp;
+
+select @month_var:= month(present_date) as Month  , @time_var :=  sum(hour(timediff(outtime,intime))+ (minute(timediff(outtime,intime))/60)  ) 
+from attendance 
+where emp_id = emp
+group by Month , emp_id;
+set month_var = @month_var;
+set time_var = @time_var;
+set per_hour_var = @per_hour_var;
+end
+$
+delimiter ;
+
+
+
+######################################################################################
+
+
+
+
+create table rooms (room_no int primary key, room_type enum('suite','regular','banquet_hall'),  capacity int , charges int );
+
+
+insert into rooms values(101, 'banquet_hall' , 100, 1000);
+insert into rooms values(102, 'banquet_hall' , 200, 1900);
+insert into rooms values(103, 'regular' , 3, 1000);
+insert into rooms values(104, 'regular' , 3, 1000);
+insert into rooms values(201, 'regular' , 3, 1000);
+insert into rooms values(202, 'regular' , 3, 1000);
+insert into rooms values(203, 'suite' , 2, 1500);
+insert into rooms values(204, 'suite' , 2, 1500);
+insert into rooms values(301, 'suite' , 2, 1500);
+insert into rooms values(302, 'suite' , 2, 1500);
+insert into rooms values(303, 'suite' , 2, 1500);
+
+
+create table roombooking (from_date date , 
+till_date date, 
+room_no int, 
+cust_id  int, 
+primary key(from_date, till_date,room_no), 
+foreign key (room_no) references rooms(room_no),
+foreign key (cust_id) references customers(cust_id)
+);
+
+
+
+insert into roombooking values('2019-01-20', '2019-01-21', 103 , 1 );
+insert into roombooking values('2019-01-21', '2019-01-23', 103 , 2 );
+insert into roombooking values('2019-01-27', '2019-01-28', 103 , 3 );
+insert into roombooking values('2019-01-20', '2019-01-23', 104 , 4 );
+insert into roombooking values('2019-01-27', '2019-01-28', 104 , 5 );
+insert into roombooking values('2019-01-20', '2019-01-22', 201 , 6 );
+insert into roombooking values('2019-01-22', '2019-01-25', 201 , 7 );
+insert into roombooking values('2019-01-28', '2019-01-29', 301 , 8 );
+insert into roombooking values('2019-01-30', '2019-01-31', 301 , 9 );
+
+
+
+create table guest_visitors (gid int primary key, 
+gfname varchar(30), 
+glname varchar(30), 
+visiting_date date, 
+visiting_time time, 
+room_no int, 
+identity_type enum('passport', 'driving_license'),
+id_no varchar(10) unique,
+foreign key (room_no) references rooms(room_no) 
+ )
+
+
+insert into guest_visitors values (1,'sushmita','sen', '2019-01-20' , '14:00:00', 103, "passport" , "M1d2r44" );
+ insert into guest_visitors values(2,'Rohit','sharma', '2019-01-27' , '18:00:00', 104, "passport" , "M1d8844" );
+insert into guest_visitors values(3,'Virat','Koli'  , '2019-01-31' , '09:00:00', 301, "passport" , "M1121r44");
+
+
+create table complaints (comp_id int primary key , 
+room_no int, 
+description varchar(100), 
+comp_time time, 
+cust_id int, 
+status enum('resolved,notresolved,inprogress'),
+foreign key (room_no) references rooms(room_no),
+foreign key (cust_id) references customers(cust_id)
+);
+
+
+
+insert into complaints values (1, 103, "heater not working" , '18:00:00', 1, 'inprogreess');
+insert into complaints values (2, 104, "light not working" , '14:00:00', 4, 'notresolved');
+insert into complaints values (3, 303, "TV not working" , '17:30:00', 9, 'resolved');
+
+
+
+create table orders (order_id int primary key, 
+order_time time, 
+order_date date, 
+cust_id int , 
+room_no int,
+foreign key (cust_id) references customers(cust_id),
+foreign key (room_no) references rooms(room_no)
+ )
+
+
+
+
+insert into orders values(1, "21:00:00",'2019-01-20', 1, 103 );
+insert into orders values(2, "20:00:00",'2019-01-21', 2, 103 );
+insert into orders values(3, "21:00:00",'2019-01-28', 8, 301 );
+insert into orders values(4, "21:00:00",'2019-01-30', 9, 301 );
+insert into orders values(5, "22:00:00",'2019-01-20', 1, 103 );
+
+
+create table food(food_id int primary key,
+food_name varchar(20),
+rate int
+);4
+
+
+insert into food values(1,'icecream',50);
+insert into food values(2,'sandwich',40);
+insert into food values(3,'pizza',20);
+insert into food values(4,'fried rice',80);
+
+
+create table order_food
+(
+order_id int,
+food_id int,
+units int(5),
+foreign key(order_id) references orders(order_id),
+foreign key (food_id) references food(food_id)
+);
+
+
+insert into order_food values(1,1,2);
+insert into order_food values(1,2,1);
+insert into order_food values(2,3,2);
+insert into order_food values(2,3,1);
+insert into order_food values(3,4,3);
+insert into order_food values(4,1,2);
+insert into order_food values(5,2,4);
+
+
+create table facilites
+(
+fac_id int primary key,
+fac_name varchar(20),
+rate int(10)
+);
+
+insert into facilites values(1,'extra bed',10);
+
+insert into facilites values(2,'spa',25);
+
+insert into facilites values(3,'pick-up',15);
+
+insert into facilites values(4,'drinks',30);
+
+insert into facilites values(5,'laundry',5);
+
+insert into facilites values(6,'gym',10);
+
+
+
+create table Request
+(
+req_id int primary key,
+cust_id int,
+room_no int(10),
+req_date date,
+req_time time,
+unit int(5),
+foreign key(cust_id) references customers(cust_id),
+foreign key(room_no) references rooms(room_no)
+);
+
+
+insert into request values(1,1,103,'2019-01-20','16:00:00',1);
+
+insert into request values(2,1,103,'2019-01-20','18:00:00',2);
+
+insert into request values(3,5,104,'2019-01-27','07:00:00',1);
+
+insert into request values(4,5,104,'2019-01-27','15:00:00',1);
+
+insert into request values(6,9,301,'2019-01-30','19:00:00',2);
+
+
+
+create table Request_facilities
+
+(
+
+fac_id int,
+req_id int,
+unit int(10),
+foreign key(fac_id) references facilites(fac_id),
+foreign key(req_id) references request(req_id)
+);
+
+insert into request_facilities values(1,4,1);
+insert into request_facilities values(4,1,2);
+insert into request_facilities values(5,6,2);
+insert into request_facilities values(5,3,2);
+insert into request_facilities values(5,2,2);
+insert into request_facilities values(2,6,2);
+
+ 1)	Display the customer details along with their room information;
+
+
+customers - rooms
+select distinct temp1.cust_id, temp1.fname, temp1.lname, temp1.room_no, temp1.from_date, temp1.till_date, temp2.capacity, temp2.charges, temp2.room_type
+from 
+(select customers.cust_id,customers.fname, customers.lname, roombooking.room_no, roombooking.from_date, roombooking.till_date
+	from customers inner join roombooking on customers.cust_id = roombooking.cust_id order by customers.cust_id) as temp1 
+					inner join	
+(select roombooking.room_no, rooms.capacity, rooms.charges, rooms.room_type
+from  roombooking inner join rooms on roombooking.room_no = rooms.room_no) as temp2 on temp1.room_no = temp2.room_no;
+
+
+2) 
+
+find total facility charges by customers and if customers has no facility charges then change it to 0.
+
+select temp1.cust_id, ifnull(sum( temp2.facility_charges),0) as Total_facility_charges
+from 
+(select customers.cust_id , request.req_id 
+from customers left join request on customers.cust_id = request.cust_id) as temp1
+				left join 
+(select request_facilities.req_id, facilities.fac_name ,facilities.rate, request_facilities.unit , (facilities.rate*request_facilities.unit) as Facility_charges 
+from request_facilities inner join facilities on request_facilities.fac_id = facilities.fac_id) as temp2 on temp1.req_id = temp2.req_id
+group by temp1.cust_id;
+
+
+3)	Show all the food ordered by customers along with its charges and  date of order.
+
+
+select temp1.cust_id, ifnull(temp2.food_name,'empty') as food_name, ifnull(temp2.units, 0) as units, ifnull(temp2.rate, 0) as rate , ifnull(total_food_charges, 0) as total_charges, temp1.order_date from
+(select customers.cust_id , orders.order_id , orders.order_time,  orders.order_date
+from customers left join orders on customers.cust_id = orders.cust_id) as temp1
+                          left join
+(select  order_food.order_id , food.food_name, order_food.units , food.rate , (order_food.units*food.rate) as total_food_charges
+from order_food inner join food on order_food.food_id = food.food_id) as temp2 on temp1.order_id = temp2.order_id
+order by temp1.cust_id asc;
+
+
+
+4) select food ordered by customers with its charges and  date of order between '2019-01-20' to '2019-01-27'
+
+select temp1.cust_id, ifnull(temp2.food_name,'empty') as food_name, ifnull(temp2.units, 0) as units, ifnull(temp2.rate, 0) as rate , ifnull(total_food_charges, 0) as total_charges, temp1.order_date  
+from
+(select customers.cust_id , orders.order_id , orders.order_time,  orders.order_date
+from customers left join orders on customers.cust_id = orders.cust_id) as temp1
+ 			left join
+ (select  order_food.order_id , food.food_name, order_food.units , food.rate , (order_food.units*food.rate) as total_food_charges
+from order_food inner join food on order_food.food_id = food.food_id) as temp2 on temp1.order_id = temp2.order_id
+where temp1.order_date between “2019-01-20” and “2019-01-27”
+order by temp1.cust_id asc;
+
+4) show total food charges for all respective customers.
+
+
+select temp1.cust_id, sum(ifnull(total_food_charges, 0)) as total_charges
+from
+(select customers.cust_id , orders.order_id , orders.order_time,  orders.order_date
+from customers left join orders on customers.cust_id = orders.cust_id) as temp1
+                          left join
+(select  order_food.order_id , food.food_name, order_food.units , food.rate , (order_food.units*food.rate) as total_food_charges
+from order_food inner join food on order_food.food_id = food.food_id) as temp2 on temp1.order_id = temp2.order_id
+group by temp1.cust_id
+order by temp1.cust_id asc;
+
+
+5) 
+
+
+
+select fname, lname
+from customers
+where fname like 's%';
+
+
+6) 
+
+
+
+select roombooking.cust_id,roombooking.room_no,roombooking.from_date,roombooking.till_date,rooms.room_type,rooms.charges
+
+
+
+
+#########################################################################################
+
+
+create or replace trigger insert_into_salary after insert on attendance
+for each row
+begin
+declare emp varchar(5);
+declare month_var int;
+declare year_var int;
+declare time_var time;
+declare per_hour_var int;
+declare count_num int;
+
+set emp=new.emp_id;
+set month_var = month(new.present_date);
+set year_var = year(new.present_date); 
+
+
+call return_row_count(emp,month_var,year_var,count_num);
+
+ call for_salary(emp, month_var, time_var, per_hour_var );
+
+if(count_num <1) then
+
+		insert into salary values(month_var, year_var, emp, time_var*per_hour_var);
+
+else 
+	update salary set salary.amount = (time_var*per_hour_var) where salary.emp_id=emp and salary.month=month_var and salary.year=year_var;
+
+end if;
+
+end 
+
+########################
+
+create or replace procedure  return_row_count(in emp varchar(5),in month_var int,in year_var int,out count_num int)
+begin 
+select count(emp_id) into count_num from salary where emp_id=emp and month=month_var and year=year_var;
+#set count_num=@count_num;
+end
+
+############################
+delimiter $
+create or replace procedure for_salary(in emp varchar(5), out month_var int,out time_var time, out per_hour_var int)
+begin 
+
+
+ select  per_hour.rate into per_hour_var
+    from employees inner join per_hour on employees.ph_id = per_hour.ph_id where employees.emp_id = emp;
+
+select month(present_date) as month , sum(hour(timediff(outtime,intime))+ (minute(timediff(outtime,intime))/60)  )  into month_var,time_var
+from attendance 
+where emp_id = emp
+group by Month , emp_id;
+#set month_var = @month_var;
+#set time_var = @time_var;
+#set per_hour_var = @per_hour_var;
+end
+$
+delimiter ;
+
+
+
+
+
+###############################################################
+
+16 ) display room rent for all customers
+
+
+select roombooking.cust_id, rooms.room_no, datediff(roombooking.till_date,roombooking.from_date) as 'Days' , rooms.charges ,  
+(datediff(roombooking.till_date,roombooking.from_date) * rooms.charges) as room_charges 
+from roombooking inner join rooms on roombooking.room_no = rooms.room_no ;
+
+
+
+
+17)  billing information of all customers;
+
+
+select temp5.cust_id, temp5.room_no, temp5.room_charges, temp5.food_charges, temp6.facility_charges, (temp5.room_charges+temp5.food_charges+temp6.facility_charges) as total_charges
+from
+(select  temp3.cust_id, temp4.room_no, temp4.room_charges ,  temp3.food_charges
+from
+(select temp1.cust_id, sum(ifnull(total_food_charges, 0)) as food_charges
+from
+(select customers.cust_id , orders.order_id
+from customers left join orders on customers.cust_id = orders.cust_id) as temp1
+                           left join
+(select  order_food.order_id , order_food.units , food.rate , (order_food.units*food.rate) as total_food_charges
+from order_food inner join food on order_food.food_id = food.food_id) as temp2 on temp1.order_id = temp2.order_id
+group by temp1.cust_id
+order by temp1.cust_id asc) as temp3
+                         inner join
+(select roombooking.cust_id, rooms.room_no, datediff(roombooking.till_date,roombooking.from_date) as 'Days' , rooms.charges ,
+(datediff(roombooking.till_date,roombooking.from_date) * rooms.charges) as room_charges
+from roombooking inner join rooms on roombooking.room_no = rooms.room_no ) as temp4 on  temp3.cust_id = temp4.cust_id) as temp5
+
+inner join
+
+(select temp1.cust_id, ifnull(sum( temp2.facility_charges),0) as facility_charges
+from
+(select customers.cust_id , request.req_id
+from customers left join request on customers.cust_id = request.cust_id) as temp1
+                        left join
+(select request_facilities.req_id, facilities.rate, request_facilities.unit , (facilities.rate*request_facilities.unit) as Facility_charges
+from request_facilities inner join facilities on request_facilities.fac_id = facilities.fac_id) as temp2 on temp1.req_id = temp2.req_id
+group by temp1.cust_id) as temp6 on temp5.cust_id = temp6.cust_id ;
+
+
+
+
+18)
+
+create or replace procedure availablity()
+begin 
+declare var_from_date date;
+declare var_till_date date;
+declare av_room_no int ;
+declare av_from_date date default current_date();
+declare av_till_date date;
+declare var_room_no int;
+declare counter int default 0;
+declare c1 cursor for select rooms.room_no, roombooking.from_date, roombooking.till_date 
+			from rooms left join roombooking on rooms.room_no = roombooking.room_no where roombooking.from_date>=current_date() or roombooking.from_date is null 						order by rooms.room_no, roombooking.from_date asc;
+declare continue handler for not found set counter=1;
+open c1;
+create table availablity(room_no int, from_date date, till_date date);
+
+get_loop : Loop
+fetch c1 into  var_room_no, var_from_date, var_till_date;
+
+if(av_room_no is null) then
+	set av_room_no = var_room_no;
+else
+	 If(av_room_no !=var_room_no) then
+			if(av_till_date != date_add(current_date(),interval 31 day)) then
+				insert into availablity values (av_room_no,av_from_date,date_add(current_date(),interval 31 day)); 
+			end if;
+			set av_room_no = var_room_no;
+	end if;
+end if;
+if counter=1 then 
+	leave get_loop;
+end if;
+if(var_from_date is not null and var_till_date is not null) then
+ 
+	if (datediff(av_from_date,var_from_date)<0) then
+		
+		set av_till_date = var_from_date;
+		insert into availablity values (av_room_no, av_from_date, av_till_date);
+	end if;
+		set av_from_date = var_till_date;
+else 
+	set av_from_date = current_date();
+	set av_till_date = date_add(current_date(),interval 31 day);
+	insert into availablity values (var_room_no, av_from_date , av_till_date);
+end if;
+end loop get_loop; 
+select * from availablity;
+drop table availablity;
+end	
+
+
+19)   display maximum salary of employee
+
+select employees.emp_id, employees.fname, employees.lname, max(salary.amount) as 'maximum salary'
+from employees inner join salary on employees.emp_id = salary.emp_id;
+
+20) 
+
+select  temp1.job_name,ifnull( sum(salary.amount),0) as sum
+from 
+(select employees.emp_id, jobrole.job_name 
+from employees right join jobrole on employees.job_id = jobrole.job_id ) as temp1  left join salary  on temp1.emp_id = salary.emp_id group by temp1.job_name 
+ having sum < 400;
+
+
+30)
